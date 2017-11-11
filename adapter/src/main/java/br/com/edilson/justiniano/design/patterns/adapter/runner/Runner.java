@@ -2,6 +2,8 @@ package br.com.edilson.justiniano.design.patterns.adapter.runner;
 
 import java.util.UUID;
 
+import org.apache.commons.math3.util.Pair;
+
 import br.com.edilson.justiniano.design.patterns.adapter.api.Customer;
 import br.com.edilson.justiniano.design.patterns.adapter.api.CustomerManagement;
 import br.com.edilson.justiniano.design.patterns.adapter.api.CustomerService;
@@ -12,21 +14,19 @@ import br.com.edilson.justiniano.design.patterns.adapter.api.impl.CustomerServic
 public class Runner {
 
 	public static void main(String... args) {
-		Customer customer = new Customer(UUID.randomUUID().toString(), "Edilson");
 		CustomerManagement customerManagement = new CustomerManagementImpl();
-		customerManagement.addCustomer(customer);
+		Pair<Customer, CustomerV2> customers = getCustomers(customerManagement, "Josy");
+		System.out.println(customers.getFirst());
+		System.out.println(customers.getSecond());
+	}
 
-		CustomerV2 customerV2 = new CustomerV2(UUID.randomUUID(), "Josy", 27);
+	public static Pair<Customer, CustomerV2> getCustomers(CustomerManagement customerManagement, String name) {
+		CustomerV2 customerV2 = new CustomerV2(UUID.randomUUID(), name, 27);
 		CustomerService customerService = new CustomerServiceToCustomerManagementAdapter(customerManagement);
 		customerService.saveCustomer(customerV2);
 
-		Customer retrievedCustomer = customerManagement.getCustomerByName("Josy");
-		CustomerV2 retrievedCustomerV2 = customerService.getCustomerByName("Edilson");
+		Customer retrievedCustomer = customerManagement.getCustomerByName(name);
 
-		System.out.println("retrieved customer v2: " + retrievedCustomerV2);
-		System.out.println("customer: " + customer);
-
-		System.out.println("retrieved customer: " + retrievedCustomer);
-		System.out.println("customerv2: " + customerV2);
+		return Pair.create(retrievedCustomer, customerV2);
 	}
 }

@@ -30,4 +30,11 @@ public class CustomerManagementImpl implements CustomerManagement {
 				.orElse(null);
 	}
 
+	/*
+	 * Used only for Unit tests purposes
+	 */
+	List<Customer> getCustomers() {
+		return customers;
+	}
+
 }
