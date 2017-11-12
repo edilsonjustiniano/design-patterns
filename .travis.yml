@@ -5,4 +5,4 @@ sudo: false
 before_script:
 - chmod a+x adapter/gradlew
 
-script: build.sh
+script: cd adapter && /.gradlew clean build
