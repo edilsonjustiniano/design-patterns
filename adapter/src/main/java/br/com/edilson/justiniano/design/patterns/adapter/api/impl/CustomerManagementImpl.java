@@ -20,7 +20,7 @@ public class CustomerManagementImpl implements CustomerManagement {
 	}
 
 	@Override
-	public Customer getCustomer(String customerId) {
+	public Customer getCustomerById(String customerId) {
 		return customers.stream().filter(customer -> customerId.equals(customer.getId())).findFirst().orElse(null);
 	}
 

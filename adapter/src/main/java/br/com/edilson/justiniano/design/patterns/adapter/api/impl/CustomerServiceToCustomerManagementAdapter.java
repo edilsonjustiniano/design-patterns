@@ -6,6 +6,7 @@ import br.com.edilson.justiniano.design.patterns.adapter.api.Customer;
 import br.com.edilson.justiniano.design.patterns.adapter.api.CustomerManagement;
 import br.com.edilson.justiniano.design.patterns.adapter.api.CustomerService;
 import br.com.edilson.justiniano.design.patterns.adapter.api.CustomerV2;
+import br.com.edilson.justiniano.design.patterns.adapter.translator.CustomerTranslator;
 
 public class CustomerServiceToCustomerManagementAdapter implements CustomerService {
 
@@ -24,16 +25,16 @@ public class CustomerServiceToCustomerManagementAdapter implements CustomerServi
 
 	@Override
 	public void saveCustomer(CustomerV2 customer) {
-		Customer customerCandidate = new Customer(customer.getId().toString(), customer.getName());
+		Customer customerCandidate = CustomerTranslator.translateFromCustomerV2(customer);
 		customerManagement.addCustomer(customerCandidate);
 	}
 
 	@Override
 	public CustomerV2 getCustomer(UUID customerId) {
-		Customer customer = customerManagement.getCustomer(customerId.toString());
+		Customer customer = customerManagement.getCustomerById(customerId.toString());
 		CustomerV2 newCustomer = null;
 		if (customer != null) {
-			newCustomer = new CustomerV2(UUID.fromString(customer.getId()), customer.getName(), 0);
+			newCustomer = CustomerTranslator.translateFromCustomer(customer);
 		}
 
 		return newCustomer;
@@ -44,7 +45,7 @@ public class CustomerServiceToCustomerManagementAdapter implements CustomerServi
 		Customer customer = customerManagement.getCustomerByName(name);
 		CustomerV2 newCustomer = null;
 		if (customer != null) {
-			newCustomer = new CustomerV2(UUID.fromString(customer.getId()), customer.getName(), 0);
+			newCustomer = CustomerTranslator.translateFromCustomer(customer);
 		}
 
 		return newCustomer;

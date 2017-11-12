@@ -12,7 +12,6 @@ import br.com.edilson.justiniano.design.patterns.adapter.api.Customer;
  *
  * @author edilson
  */
-
 public class CustomerManagementImplTest {
 
 	private static final String CUSTOMER_ID = "customerId";
@@ -35,5 +34,31 @@ public class CustomerManagementImplTest {
 
 		// then
 		assertThat(customerManagement.getCustomers().get(0)).isEqualTo(customer);
+	}
+
+	@Test
+	public void getCustomerById_shouldSuccessfullyFound() {
+		// given
+		Customer customer = new Customer(CUSTOMER_ID, CUSTOMER_NAME);
+		customerManagement.getCustomers().add(customer);
+
+		// when
+		Customer result = customerManagement.getCustomerById(CUSTOMER_ID);
+
+		// then
+		assertThat(result).isEqualTo(customer);
+	}
+
+	@Test
+	public void getCustomerByName_shouldSuccessfullyFound() {
+		// given
+		Customer customer = new Customer(CUSTOMER_ID, CUSTOMER_NAME);
+		customerManagement.getCustomers().add(customer);
+
+		// when
+		Customer result = customerManagement.getCustomerByName(CUSTOMER_NAME);
+
+		// then
+		assertThat(result).isEqualTo(customer);
 	}
 }

@@ -4,7 +4,7 @@ public interface CustomerManagement {
 
 	void addCustomer(Customer customer);
 
-	Customer getCustomer(String customerId);
+	Customer getCustomerById(String customerId);
 
 	Customer getCustomerByName(String name);
 
