@@ -15,12 +15,12 @@ public class Runner {
 
 	public static void main(String... args) {
 		CustomerManagement customerManagement = new CustomerManagementImpl();
-		Pair<Customer, CustomerV2> customers = getCustomers(customerManagement, "Josy");
+		Pair<Customer, CustomerV2> customers = getCustomers(customerManagement, args[0]);
 		System.out.println(customers.getFirst());
 		System.out.println(customers.getSecond());
 	}
 
-	public static Pair<Customer, CustomerV2> getCustomers(CustomerManagement customerManagement, String name) {
+	private static Pair<Customer, CustomerV2> getCustomers(CustomerManagement customerManagement, String name) {
 		CustomerV2 customerV2 = new CustomerV2(UUID.randomUUID(), name, 27);
 		CustomerService customerService = new CustomerServiceToCustomerManagementAdapter(customerManagement);
 		customerService.saveCustomer(customerV2);
