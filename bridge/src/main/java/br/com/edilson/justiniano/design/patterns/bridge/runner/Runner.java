@@ -1,0 +1,40 @@
+package br.com.edilson.justiniano.design.patterns.bridge.runner;
+
+import br.com.edilson.justiniano.design.patterns.bridge.api.Car;
+import br.com.edilson.justiniano.design.patterns.bridge.api.Product;
+import br.com.edilson.justiniano.design.patterns.bridge.api.impl.BigWheel;
+import br.com.edilson.justiniano.design.patterns.bridge.api.impl.CentralLocking;
+import br.com.edilson.justiniano.design.patterns.bridge.api.impl.GearLocking;
+import br.com.edilson.justiniano.design.patterns.bridge.api.impl.Motoren;
+
+public class Runner {
+
+	public static void main(String[] args) {
+
+		Product product = new CentralLocking("Central Locking System");
+		Product product2 = new GearLocking("Gear Locking System");
+
+		Car car = new BigWheel(product, "BigWheel xz model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		System.out.println();
+
+		car = new BigWheel(product2, "BigWheel xz model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		System.out.println();
+
+		car = new Motoren(product, "Motoren lm model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+		System.out.println();
+
+		car = new Motoren(product2, "Motoren lm model");
+		car.produceProduct();
+		car.assemble();
+		car.printDetails();
+	}
+}
