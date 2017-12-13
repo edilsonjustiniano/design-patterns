@@ -2,7 +2,5 @@ language: java
 jdk:
   - oraclejdk8
 sudo: false
-before_script:
-- chmod a+x adapter/gradlew
 
-script: cd observer && ./gradlew clean build && cd ../bridge && ./gradlew clean build && cd ../adapter && ./gradlew clean build && cd ../facade && ./gradlew clean build
+script: ./gradlew clean build

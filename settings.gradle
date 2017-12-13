@@ -1,0 +1,6 @@
+include "adapter"
+include "observer"
+include "composite"
+include "bridge"
+include "facade"
+
